@@ -2,6 +2,8 @@
 Teste simples utilizando o GraphQl para exibir uma lista de países com uma tela de edição dos mesmos.
 O sistema está em inglês devido aos resultados do GraphQl serem em inglês, facilitando a compreenção na hora da consulta.
 
+Uma demo publicada se encontra [Aqui](http://softplan-paises.herokuapp.com) ,porém não funciona com https apenas http devido ao CORS.
+
 ## Home
 - A pesquisa utiliza o nome do país em ingles e busca o texto em qualquer lugar do nome.
 - Mesmo após editar o nome do país nos detalhes, a pesquisa ainda utilizara o nome em inglês conforme o original no servidor.
