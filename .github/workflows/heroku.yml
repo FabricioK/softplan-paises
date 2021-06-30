@@ -6,7 +6,16 @@ on:
 name: Heroku - build and deploy
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          node-version: 14
+      - run: npm i
+      - run: npm test
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
