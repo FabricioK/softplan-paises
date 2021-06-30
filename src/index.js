@@ -4,9 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/client';
+import { client } from './data/apolloClient'
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+    <React.Suspense fallback={<span> Carregando</span>}>
+      <Router>
+        <App />
+      </Router>
+    </React.Suspense>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

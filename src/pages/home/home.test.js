@@ -1,16 +1,13 @@
 import React from "react";
 import { render, waitFor, act, fireEvent } from "@testing-library/react";
 import { MockedProvider, } from "@apollo/client/testing";
-import App from "./App";
-import { Router } from "react-router-dom";
-import { createMemoryHistory } from 'history'
-import { GET_COUNTRY_LIST } from "./data/schemas";
+import { GET_COUNTRY_LIST } from "../../data/schemas";
+import Home from ".";
+import { MemoryRouter } from "react-router-dom";
 
-describe("Testing App", () => {
+describe("Testing Home", () => {
   let component;
-  const history = createMemoryHistory();
   beforeEach(() => {
-    history.push('/');
     const defaultMocks = [
       {
         request: {
@@ -38,19 +35,39 @@ describe("Testing App", () => {
     ];
 
     component = render(
-      <MockedProvider addTypename={false} mocks={defaultMocks}>
-        <React.Suspense fallback={<span> Carregando</span>}>
-          <Router history={history}>
-            <App />
-          </Router>
-        </React.Suspense>
-      </MockedProvider>
+      <MemoryRouter>
+        <MockedProvider addTypename={false} mocks={defaultMocks}>
+          <Home />
+        </MockedProvider>
+      </MemoryRouter>
     );
   })
 
   it('should render without error', () => {
     act(() => {
       component;
+    });
+  });
+
+  it('should render loading state initially', async () => {
+    const { queryAllByText } = component;
+    await waitFor(() => {
+      const countLoading = queryAllByText('loading ...');
+      expect(countLoading).toHaveLength(1);
+    });
+  });
+
+  it('should render brazil card', async () => {
+    const { getByTestId } = component;
+    const input = getByTestId('search-field');
+    fireEvent.change(input, {
+      target: {
+        value: "b"
+      }
+    })
+    await waitFor(() => {
+      const countLoading = getByTestId('country_card_661');
+      expect(countLoading).toBeDefined();
     });
   });
 });
