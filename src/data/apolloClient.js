@@ -1,8 +1,24 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-export const client = new ApolloClient({
+const enchancedFetch = (url, init) => {
+    return fetch(url, {
+        ...init,
+        headers: {
+            ...init.headers,
+            'Access-Control-Allow-Origin': '*',
+        },
+    }).then(response => response)
+}
+
+const httpLink = new HttpLink({
+    uri: "http://testefront.dev.softplan.com.br/graphql",
     fetchOptions: {
         mode: 'no-cors',
     },
+    fetch: enchancedFetch,
+})
+
+export const client = new ApolloClient({
+    link: httpLink,
     cache: new InMemoryCache({
         typePolicies: {
             Country: {
@@ -36,5 +52,4 @@ export const client = new ApolloClient({
             }
         }
     }),
-    uri: "http://testefront.dev.softplan.com.br/graphql"
 });

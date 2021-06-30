@@ -6,6 +6,8 @@ on:
 name: Heroku - build and deploy
 
 jobs:
+  test:
+    
   build:
     runs-on: ubuntu-latest
     steps:
