@@ -1,4 +1,6 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { HttpLink } from 'apollo-boost';
+
 const enchancedFetch = (url, init) => {
     return fetch(url, {
         ...init,
@@ -12,7 +14,7 @@ const enchancedFetch = (url, init) => {
 const httpLink = new HttpLink({
     uri: "http://testefront.dev.softplan.com.br/graphql",
     fetchOptions: {
-        mode: 'no-cors',
+        mode: 'cors',
     },
     fetch: enchancedFetch,
 })
