@@ -6,8 +6,6 @@ on:
 name: Heroku - build and deploy
 
 jobs:
-  test:
-    
   build:
     runs-on: ubuntu-latest
     steps:
@@ -17,3 +15,4 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: softplan-paises #Must be unique in Heroku
           heroku_email: fabriciodossa@hotmail.com
+
