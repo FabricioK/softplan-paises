@@ -1,5 +1,8 @@
-import { ApolloClient,InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 export const client = new ApolloClient({
+    fetchOptions: {
+        mode: 'no-cors',
+    },
     cache: new InMemoryCache({
         typePolicies: {
             Country: {
